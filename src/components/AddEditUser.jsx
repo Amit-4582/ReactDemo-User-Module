@@ -20,15 +20,16 @@ const AddEditUserComponent = () => {
   const { loading, currentUser } = useSelector((state) => state);
 
   useEffect(() => {
-    const fetchUserDetail = async () => {
-      try {
-        await dispatch(getUserById(userId)).unwrap();
-      } catch (error) {
-        console.log("ERROR IN FETCH USER ::: ", error);
-      }
-    };
-
-    fetchUserDetail();
+    if (userId) {
+      const fetchUserDetail = async () => {
+        try {
+          await dispatch(getUserById(userId)).unwrap();
+        } catch (error) {
+          console.log("ERROR IN FETCH USER ::: ", error);
+        }
+      };
+      fetchUserDetail();
+    }
   }, [dispatch, userId]);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ const AddEditUserComponent = () => {
       setLastname("");
       setEmail("");
       setAge("");
+      setErrors({});
     }
   }, [userId, currentUser]);
 
